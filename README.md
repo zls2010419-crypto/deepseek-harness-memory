@@ -143,12 +143,6 @@ embedding:
 复习间隔按 [1, 2, 4, 7, 15, 30] 天逐级晋升。召回打分会乘以 `R(t)`，
 久未复习的记忆自然衰减。
 
-## 收录到 awesome-dsh-plugin
-
-本项目满足 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)
-的收录要求：`package.json` 声明 `dsh.bundle`、含 `cordis.patch.yml`、真实代码、MIT 许可、
-图标。投稿条目模板见 `awesome-submission.example.yml`，完整申请步骤见
-[`CONTRIBUTING.md`](./CONTRIBUTING.md)。
 
 ## 依赖
 

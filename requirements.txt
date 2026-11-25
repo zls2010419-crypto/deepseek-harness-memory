@@ -1,0 +1,9 @@
+# 核心运行：仅依赖 Python 标准库即可跑通（含哈希回退嵌入、SQLite 存储）
+# 以下为可选增强，按需安装
+
+# YAML 解析（若未安装，插件内置了最小 YAML 解析器兜底）
+PyYAML>=6.0
+
+# OpenVINO 向量化（对接 OpenVINO 服务端 / 本地运行时，可选）
+numpy>=1.24
+openvino>=2024.0

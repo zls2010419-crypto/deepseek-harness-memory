@@ -1,0 +1,60 @@
+# ============================================================================
+# DeepSeek Harness 记忆插件配置
+# ============================================================================
+
+plugin:
+  name: "deepseek-harness-memory"
+  version: "1.0.0"
+  enabled: true
+
+# 存储：记忆库按「仓库」隔离（repo_id 作为命名空间）
+storage:
+  base_dir: "./data"          # 记忆库根目录
+  db_name: "memory.db"        # 每个仓库一个独立 SQLite 文件
+
+# 向量化：优先对接 OpenVINO 服务端；不可用时回退到确定性哈希嵌入
+embedding:
+  provider: "openvino"        # openvino | hash
+  server_url: "http://127.0.0.1:9001"   # OpenVINO Model Server (OVMS) REST 地址
+  model_name: "bge-m3"        # 服务端部署的模型名
+  model_path: ""              # 本地 OpenVINO IR 模型路径（可选，留空则仅用服务端）
+  dimension: 1024             # 嵌入维度（哈希回退时也复用该维度）
+  timeout: 5                  # 服务端请求超时（秒）
+
+# 自动召回
+recall:
+  top_k: 8
+  min_score: 0.30
+  similarity_weight: 0.40     # 语义相似度
+  importance_weight: 0.35     # 记忆重要度
+  recency_weight: 0.25        # 时间近因
+  graph_expand: true          # 是否沿记忆图谱扩展召回
+  graph_expand_depth: 2       # 图谱扩展跳数
+  max_tokens: 2000            # 注入记忆的最大 token 估算
+
+# 艾宾浩斯遗忘曲线（间隔复习）
+forgetting:
+  enabled: true
+  intervals: [1, 2, 4, 7, 15, 30]   # 复习间隔（天），逐级晋升
+  decay_lambda: 0.10                # 遗忘速率（越小忘得越慢）
+  base_retention: 0.9               # 初始保持率
+
+# 空闲窗口自动整理（深度反思 + 合并 + 修剪 + 画像更新）
+consolidation:
+  enabled: true
+  idle_seconds: 60                  # 空闲多少秒触发一次整理
+  min_recent_for_reflection: 3      # 触发深度反思的最小新记忆数
+  prune_below_importance: 0.05      # 低于该重要度且久未命中的记忆将被归档
+  max_memories_per_repo: 5000       # 单仓库记忆上限
+
+# 高权限写入 / 反篡改控制
+permissions:
+  write_protection: true            # 写保护
+  append_only: true                 # 审计日志追加式，不可覆盖
+  integrity_check: true             # 每行 SHA256 完整性校验
+  privileged_token: "dsh-memory-admin"   # 高权限写入口令（可替换为环境变量 DSH_MEMORY_TOKEN）
+
+# 人格文件
+personality:
+  file: "persona/persona.yaml"      # 人格文件路径（相对项目根）
+  inject: true                      # 是否注入到系统提示

@@ -1,0 +1,6 @@
+# DSH bundle 配置层：声明本包插入到 Cordis 插件树的一行。
+# - id 必须稳定且特异，供 profile / home / --patch 按 id 覆盖。
+# - name 使用 npm 包名（而非相对路径），由 Node 模块解析定位已安装代码。
+- insert:
+  - id: dsh-memory-plugin
+    name: dsh-memory-plugin

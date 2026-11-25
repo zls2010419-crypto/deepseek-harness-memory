@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deepseek-harness-memory"
+version = "1.0.0"
+description = "DeepSeek Harness 长期记忆插件：自动召回、知识页、按仓库隔离、记忆图谱、用户画像注入、艾宾浩斯遗忘曲线、空闲整理与 OpenVINO 向量化"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "WorkBuddy" }]
+dependencies = []
+
+[project.optional-dependencies]
+openvino = ["numpy>=1.24", "openvino>=2024.0"]
+yaml = ["PyYAML>=6.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dsh_memory*"]

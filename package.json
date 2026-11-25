@@ -1,0 +1,36 @@
+{
+  "name": "dsh-memory-plugin",
+  "version": "0.1.0",
+  "description": "Long-term memory plugin for DeepSeek Harness: auto-recall, per-repo isolated memory, knowledge pages, a memory graph, user-profile injection, an Ebbinghaus forgetting curve, and OpenVINO embeddings.",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "dsh_memory",
+    "config",
+    "persona",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "memory",
+    "agent",
+    "long-term-memory"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "test": "python -m unittest tests.test_core -v"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
